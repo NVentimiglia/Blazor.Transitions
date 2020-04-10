@@ -10,7 +10,7 @@ Supports 5 animations :
 - Intro Complete (snap to opacity 1)
 - Outro Complete (snap to opacity 0)
 
-![Alt Text](example.gif)
+![Alt Text](https://raw.githubusercontent.com/NVentimiglia/Blazor.Transitions/master/Example.gif)
 
 ```javascript
 @page "/counter"
