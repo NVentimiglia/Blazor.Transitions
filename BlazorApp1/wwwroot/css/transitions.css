@@ -1,0 +1,88 @@
+﻿.transition_hideComplete {
+    opacity: 0;
+}
+
+.transition_showComplete {
+    opacity: 1;
+}
+
+.transition_hide {
+    opacity: 0;
+    animation: transition_hide ease .3s;
+    -webkit-animation: transition_hide ease .3s;
+    -moz-animation: transition_hide ease .3s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+.transition_show {
+    animation: transition_show ease .2s;
+    -webkit-animation: transition_show ease .2s;
+    -moz-animation: transition_show ease .2s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+.transition_update {
+    animation: transition_update ease .2s;
+    -webkit-animation: transition_update ease .2s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+.transition_update2 {
+    animation: transition_update2 ease .2s;
+    -webkit-animation: transition_update2 ease .2s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+/*transition_show*/
+
+@keyframes transition_show
+{
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-webkit-keyframes transition_show
+{
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/*transition_hide*/
+
+@keyframes transition_hide
+{
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@-webkit-keyframes transition_hide
+{
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/*transition_update*/
+
+@keyframes transition_update
+{
+    0% { background-color: yellow; }    
+    100% { background-color: transparent; }
+}
+
+@-webkit-keyframes transition_update
+{
+    0% { background-color: yellow; }
+    100% { background-color: transparent; }
+}
+
+@keyframes transition_update2
+{
+    0% { background-color: yellow; }
+    100% { background-color: transparent; }
+}
+
+@-webkit-keyframes transition_update2
+{
+    0% { background-color: yellow; }
+    100% { background-color: transparent; }
+}

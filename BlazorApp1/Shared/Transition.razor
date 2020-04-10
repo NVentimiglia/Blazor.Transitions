@@ -1,0 +1,98 @@
+﻿<div class="@AnimClass">
+    @ChildContent
+</div>
+
+@code
+{
+    public enum VisualStates
+    {
+        NA,
+        SHOW_COMPLETE,
+        SHOW,
+        UPDATE,
+        UPDATE2,
+        HIDE,
+        HIDE_COMPLETE
+    };
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public bool IsVisible { get; set; }
+
+
+    public VisualStates State { get; private set; }
+    public bool WasVisible { get; private set; }
+    public string AnimClass { get; private set; }
+    public bool IsInit { get; private set; }
+
+
+    protected override void OnParametersSet()
+    {
+        if (!IsInit)
+        {
+            if (IsVisible)
+            {
+                State = VisualStates.SHOW_COMPLETE;
+            }
+            else
+            {
+                State = VisualStates.HIDE_COMPLETE;
+            }
+        }
+        else
+        {
+            if (WasVisible && !IsVisible)
+            {
+                State = VisualStates.HIDE;
+            }
+            else if (!WasVisible && IsVisible)
+            {
+                State = VisualStates.SHOW;
+            }
+            else if (IsVisible && WasVisible)
+            {
+                //hack
+                //force animation on subsiquent updates
+                if(State == VisualStates.UPDATE)
+                {
+                    State = VisualStates.UPDATE2;
+                }
+                else
+                {
+                    State = VisualStates.UPDATE;
+                }
+            }
+        }
+
+        Render();
+
+        IsInit = true;
+        WasVisible = IsVisible;
+
+        base.OnParametersSet();
+    }
+
+    void Render()
+    {
+        switch (State)
+        {
+            case VisualStates.SHOW:
+                AnimClass = "transition_show";
+                break;
+            case VisualStates.HIDE:
+                AnimClass = "transition_hide";
+                break;
+            case VisualStates.UPDATE:
+                AnimClass = "transition_update";
+                break;
+            case VisualStates.UPDATE2:
+                AnimClass = "transition_update2";
+                break;
+            case VisualStates.HIDE_COMPLETE:
+                AnimClass = "transition_hideComplete";
+                break;
+            default:
+                AnimClass = "transition_showComplete";
+                break;
+        }
+    }
+}

@@ -1,19 +1,4 @@
-# Blazor.Transitions
-Blazor Transition Example
-
-Experiment on how to handle intro/outro/update animations for Blazor components. Solution is a Blazor componenet with an IsVisible property. It listens to property changes and renders a div with an appropriate css class.
-
-Supports 5 animations :
-- Intro (fade in)
-- Outro (fade out)
-- Update (yellow blink)
-- Intro Complete (snap to opacity 1)
-- Outro Complete (snap to opacity 0)
-
-![Alt Text](example.gif)
-
-```javascript
-@page "/counter"
+﻿@page "/counter"
 @using BlazorApp1.Shared;
 
 <Transition IsVisible="@IsVisible">
@@ -41,5 +26,3 @@ Supports 5 animations :
         IsVisible = !IsVisible;
     }
 }
-
-```
