@@ -1,98 +1,62 @@
-﻿<div class="@AnimClass">
+﻿@inject IJSRuntime JSRuntime
+
+<div class="@AnimClass" id="@Id">
     @ChildContent
 </div>
 
 @code
 {
-    public enum VisualStates
-    {
-        NA,
-        SHOW_COMPLETE,
-        SHOW,
-        UPDATE,
-        UPDATE2,
-        HIDE,
-        HIDE_COMPLETE
-    };
-
     [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public bool IsVisible { get; set; } = true;
+    [Parameter] public bool ShowIntro { get; set; } = false;
 
+    [Parameter] public string ShowClip { get; set; } = "fadeIn";
+    [Parameter] public string HideClip { get; set; } = "fadeOut";
+    [Parameter] public string UpdateClip { get; set; } = "pulse";
+    [Parameter] public string Class { get; set; } = "";
 
-    public VisualStates State { get; private set; }
-    public bool WasVisible { get; private set; }
-    public string AnimClass { get; private set; }
-    public bool IsInit { get; private set; }
+    protected bool WasVisible { get; private set; }
+    protected string AnimClass { get; private set; }
+    protected string Id { get; private set; }
 
+    protected override void OnInitialized()
+    {
+        Id = Guid.NewGuid().ToString();
+        base.OnInitialized();
+    }
 
     protected override void OnParametersSet()
     {
-        if (!IsInit)
+        if (!ShowIntro)
         {
             if (IsVisible)
             {
-                State = VisualStates.SHOW_COMPLETE;
+                AnimClass = $"{Class} transition_showComplete";
             }
             else
             {
-                State = VisualStates.HIDE_COMPLETE;
+                AnimClass = $"{Class} transition_hideComplete";
             }
         }
         else
         {
             if (WasVisible && !IsVisible)
             {
-                State = VisualStates.HIDE;
+                AnimClass = $"animated {Class} {HideClip}";
             }
             else if (!WasVisible && IsVisible)
             {
-                State = VisualStates.SHOW;
+                AnimClass = $"animated {Class} {ShowClip}";
             }
             else if (IsVisible && WasVisible)
             {
-                //hack
-                //force animation on subsiquent updates
-                if(State == VisualStates.UPDATE)
-                {
-                    State = VisualStates.UPDATE2;
-                }
-                else
-                {
-                    State = VisualStates.UPDATE;
-                }
+                JSRuntime.InvokeVoidAsync("Transitions.animate", Id, Class, UpdateClip);
             }
         }
 
-        Render();
-
-        IsInit = true;
+        ShowIntro = true;
         WasVisible = IsVisible;
 
         base.OnParametersSet();
-    }
-
-    void Render()
-    {
-        switch (State)
-        {
-            case VisualStates.SHOW:
-                AnimClass = "transition_show";
-                break;
-            case VisualStates.HIDE:
-                AnimClass = "transition_hide";
-                break;
-            case VisualStates.UPDATE:
-                AnimClass = "transition_update";
-                break;
-            case VisualStates.UPDATE2:
-                AnimClass = "transition_update2";
-                break;
-            case VisualStates.HIDE_COMPLETE:
-                AnimClass = "transition_hideComplete";
-                break;
-            default:
-                AnimClass = "transition_showComplete";
-                break;
-        }
     }
 }

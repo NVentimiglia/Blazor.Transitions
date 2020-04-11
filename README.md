@@ -10,6 +10,9 @@ Supports 5 animations :
 - Intro Complete (snap to opacity 1)
 - Outro Complete (snap to opacity 0)
 
+Uses this library for animation tweens
+https://github.com/daneden/animate.css
+
 ![Alt Text](https://raw.githubusercontent.com/NVentimiglia/Blazor.Transitions/master/Example.gif)
 
 ```javascript
@@ -42,4 +45,44 @@ Supports 5 animations :
     }
 }
 
+```
+
+```javascript
+@page "/fetchdata"
+@inject HttpClient Http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<Transition IsVisible="forecasts == null" Class="fast">
+    <p><em>Loading...</em></p>
+</Transition>
+@if (forecasts != null)
+{
+    <Transition ShowIntro="true" Class="delay-500mss">
+        <table class="table animateList">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Temp. (C)</th>
+                    <th>Temp. (F)</th>
+                    <th>Summary</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var forecast in forecasts)
+                {
+
+                    <tr>
+                        <td>@forecast.Date.ToShortDateString()</td>
+                        <td>@forecast.TemperatureC</td>
+                        <td>@forecast.TemperatureF</td>
+                        <td>@forecast.Summary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Transition>
+}
 ```
