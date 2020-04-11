@@ -65,7 +65,6 @@ https://github.com/daneden/animate.css
         <tbody>
             @foreach (var forecast in forecasts)
             {
-
                 <tr>
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
@@ -77,6 +76,3 @@ https://github.com/daneden/animate.css
     </table>
 </Transition>
 ```
-
-
-P.S. Did I just reinvent AJAx Update Panels?!?!?!?! Help.
