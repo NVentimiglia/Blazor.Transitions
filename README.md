@@ -77,3 +77,6 @@ https://github.com/daneden/animate.css
     </table>
 </Transition>
 ```
+
+
+P.S. Did I just reinvent AJAx Update Panels?!?!?!?! Help.
