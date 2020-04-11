@@ -48,41 +48,32 @@ https://github.com/daneden/animate.css
 ```
 
 ```javascript
-@page "/fetchdata"
-@inject HttpClient Http
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
-
-<Transition IsVisible="forecasts == null" Class="fast">
+<Transition IsVisible="forecasts.Length == 0" Class="fast">
     <p><em>Loading...</em></p>
 </Transition>
-@if (forecasts != null)
-{
-    <Transition ShowIntro="true" Class="delay-500mss">
-        <table class="table animateList">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var forecast in forecasts)
-                {
+<Transition IsVisible="forecasts.Length > 0" Class="delay-500ms">
+    <table class="table animateList">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
 
-                    <tr>
-                        <td>@forecast.Date.ToShortDateString()</td>
-                        <td>@forecast.TemperatureC</td>
-                        <td>@forecast.TemperatureF</td>
-                        <td>@forecast.Summary</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </Transition>
-}
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</Transition>
 ```
