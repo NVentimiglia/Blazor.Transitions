@@ -76,3 +76,40 @@ https://github.com/daneden/animate.css
     </table>
 </Transition>
 ```
+
+Don't forget to copy the necessary files to /wwwroot/css and update index.html to link the js and css files.
+
+```javascript
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Blazor.Transitions.Example</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="Blazor.Transitions.Example.styles.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+
+    <link href="css/animate.css/animate.min.css" rel="stylesheet" />
+    <link href="css/transitions/transitions.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">Loading...</div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="css/transitions/transitions.js"></script>
+
+</body>
+
+</html>
+```

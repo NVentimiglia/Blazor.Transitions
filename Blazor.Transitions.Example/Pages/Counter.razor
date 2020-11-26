@@ -1,0 +1,27 @@
+﻿@page "/counter"
+
+<Transition IsVisible="@IsVisible" Class="faster">
+    <h1>Counter</h1>
+
+    <p>Current count: @currentCount</p>
+
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+</Transition>
+<br />
+<button class="btn btn-danger" @onclick="ShowHide">Toggle</button>
+
+
+@code { private int currentCount = 0;
+
+            public bool IsVisible { get; set; } = true;
+
+            private void IncrementCount()
+            {
+                currentCount++;
+            }
+
+            private void ShowHide()
+            {
+                IsVisible = !IsVisible;
+            }
+    }
